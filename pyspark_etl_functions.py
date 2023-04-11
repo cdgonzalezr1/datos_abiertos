@@ -1,6 +1,21 @@
 import os
 from pyspark.sql import SparkSession
+import os
+from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, count, when, isnan, isnull, min, max, mean, stddev
+from pyspark.sql.types import DoubleType, FloatType, IntegerType, LongType, ShortType, TimestampType
+
+
+def read_csv_with_pyspark(filename, folder='data'):
+    spark = SparkSession.builder \
+        .appName("Read CSV with PySpark") \
+        .getOrCreate()
+
+    file_path = os.path.join(folder, filename)
+    df = spark.read.csv(file_path, header=True, inferSchema=True)
+    
+    return df
+
 
 def analyze_data_quality(filename, folder='data'):
     spark = SparkSession.builder \
@@ -15,7 +30,7 @@ def analyze_data_quality(filename, folder='data'):
     print(f"Total de registros: {record_count}")
 
     # Cuenta de registros nulos y duplicados
-    null_count = df.select([count(when(isnan(c) | isnull(c), c)).alias(c) for c in df.columns]).collect()
+    null_count = df.select([count(when(isnull(c), c)).alias(c) for c in df.columns]).collect()
     duplicate_count = df.count() - df.dropDuplicates().count()
 
     print("\nConteo de registros nulos por columna:")
@@ -25,7 +40,7 @@ def analyze_data_quality(filename, folder='data'):
     print(f"\nConteo de registros duplicados: {duplicate_count}")
 
     # Estadísticas descriptivas (mínimo, máximo, promedio, desviación estándar) para columnas numéricas
-    numeric_columns = ['Multa Inicial']
+    numeric_columns = [col_name for col_name, dtype in df.dtypes if dtype in ("double", "float", "int", "bigint", "smallint")]
     summary_stats = df.select(numeric_columns).summary("min", "max", "mean", "stddev").collect()
 
     print("\nEstadísticas descriptivas para columnas numéricas:")
@@ -45,7 +60,3 @@ def analyze_data_quality(filename, folder='data'):
         outliers = df.filter((col(col_name) < lower_bound) | (col(col_name) > upper_bound)).count()
 
         print(f"\nValores atípicos en la columna {col_name}: {outliers}")
-
-if __name__ == "__main__":
-    filename = 'multas_SECOP.csv'
-    analyze_data_quality(filename)
