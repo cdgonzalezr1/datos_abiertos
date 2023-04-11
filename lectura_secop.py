@@ -14,7 +14,7 @@ def obtener_datos_contratacion_publica(url: str, fecha_desde: str = None) -> pd.
 
 def guardar_datos_en_csv(datos: pd.DataFrame, archivo: str):
     try:
-        datos.to_csv(archivo, index=False)
+        datos.to_csv('data/' + archivo, index=False)
     except Exception as e:
         print(f"Error al guardar los datos en el archivo CSV: {e}")
 
