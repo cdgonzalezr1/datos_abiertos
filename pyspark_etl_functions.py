@@ -1,9 +1,11 @@
 import os
 from pyspark.sql import SparkSession
-import os
-from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, count, when, isnan, isnull, min, max, mean, stddev
 from pyspark.sql.types import DoubleType, FloatType, IntegerType, LongType, ShortType, TimestampType
+from pyspark.sql import DataFrame
+from datetime import datetime
+
+
 
 
 def read_csv_with_pyspark(filename, folder='data', separator='|'):
@@ -57,3 +59,18 @@ def analyze_data_quality(df):
         outliers = df.filter((col(col_name) < lower_bound) | (col(col_name) > upper_bound)).count()
 
         print(f"\nValores atípicos en la columna {col_name}: {outliers}")
+
+
+
+def limpiar_nulos_y_duplicados(df: DataFrame, columnas: list) -> DataFrame:
+    df_limpio = df.dropna(subset=columnas)
+
+    df_limpio = df_limpio.dropDuplicates()
+
+    return df_limpio
+
+
+def filtrar_ultimos_anos(df, years=2):
+    today_year = datetime.today().year
+    df_filtrado = df.filter((df.year >= today_year - years) & (df.year <= today_year))
+    return df_filtrado
