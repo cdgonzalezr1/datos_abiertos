@@ -6,24 +6,21 @@ from pyspark.sql.functions import col, count, when, isnan, isnull, min, max, mea
 from pyspark.sql.types import DoubleType, FloatType, IntegerType, LongType, ShortType, TimestampType
 
 
-def read_csv_with_pyspark(filename, folder='data'):
+def read_csv_with_pyspark(filename, folder='data', separator='|'):
     spark = SparkSession.builder \
         .appName("Read CSV with PySpark") \
         .getOrCreate()
 
     file_path = os.path.join(folder, filename)
-    df = spark.read.csv(file_path, header=True, inferSchema=True)
+    df = spark.read.csv(file_path, header=True, inferSchema=True, sep=separator)
     
     return df
 
 
-def analyze_data_quality(filename, folder='data'):
+def analyze_data_quality(df):
     spark = SparkSession.builder \
         .appName("Analyze Data Quality with PySpark") \
         .getOrCreate()
-
-    file_path = os.path.join(folder, filename)
-    df = spark.read.csv(file_path, header=True, inferSchema=True)
 
     # Cuenta de registros
     record_count = df.count()
