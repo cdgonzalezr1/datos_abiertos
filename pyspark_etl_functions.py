@@ -1,9 +1,11 @@
 import os
-from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, count, when, isnan, isnull, min, max, mean, stddev
-from pyspark.sql.types import DoubleType, FloatType, IntegerType, LongType, ShortType, TimestampType
-from pyspark.sql import DataFrame
 from datetime import datetime
+
+from pyspark.sql import SparkSession, DataFrame
+from pyspark.sql.functions import (col, count, when, isnan, isnull, min, max, mean, stddev, sum, avg, 
+                                   month, year, months_between, current_date, concat, lit)
+
+import pyspark.sql.functions as F
 
 
 
@@ -74,3 +76,66 @@ def filtrar_ultimos_anos(df, years=2):
     today_year = datetime.today().year
     df_filtrado = df.filter((df.year >= today_year - years) & (df.year <= today_year))
     return df_filtrado
+
+def seleccionar_columnas(df, columnas):
+    return df.select(columnas)
+
+
+def agregar_por_nit_entidad(df):
+    agg_exprs = [
+        F.count("*").alias("num_contratos"),
+        F.sum("VALOR_TOTAL_CONTRATO").alias("suma_valor_total_contrato"),
+        F.avg("VALOR_TOTAL_CONTRATO").alias("promedio_valor_total_contrato"),
+        F.max(F.struct("year", "month")).alias("ultimo_contrato"),
+        F.countDistinct("DEPARTAMENTO").alias("num_departamentos"),
+        F.countDistinct("ESTADO_DEL_PROCESO").alias("num_estados_proceso"),
+        F.countDistinct("CLASE_PROCESO").alias("num_clases_proceso"),
+        F.countDistinct("TIPO_PROCESO").alias("num_tipos_proceso"),
+        F.countDistinct("NOMBRE_FAMILIA").alias("num_familias"),
+        F.countDistinct("NOMBRE_CLASE").alias("num_clases")
+    ]
+    
+    df_agregado = (
+        df.groupBy("NIT_ENTIDAD", "NOMBRE_ENTIDAD")
+        .agg(*agg_exprs)
+        .withColumn(
+            "meses_desde_ultimo_contrato",
+            (F.year(F.current_date()) - F.col("ultimo_contrato.year")) * 12
+            + (F.month(F.current_date()) - F.col("ultimo_contrato.month"))
+        )
+        .drop("ultimo_contrato")
+        .orderBy(F.desc("num_contratos")) 
+    )
+    
+    return df_agregado
+
+
+def pivotar_por_columna(df, columna):
+    valores = df.select(columna).distinct().rdd.flatMap(lambda x: x).collect()
+
+    df_pivote = (
+        df.groupBy("NIT_ENTIDAD", "NOMBRE_ENTIDAD")
+        .pivot(columna, valores)
+        .count()
+        .fillna(0)
+    )
+    
+    return df_pivote
+
+def unir_dataframes(df1, df2):
+    df_unido = df1.join(df2, on=["NIT_ENTIDAD", "NOMBRE_ENTIDAD"], how="inner")
+    return df_unido
+
+def aggregate_multas_data(multas_df):
+    result = multas_df.groupBy("nit_entidad").agg(
+        count("*").alias("numero_de_multas"),
+        sum("valor_sancion").alias("suma_valor_sancion"),
+        avg("valor_sancion").alias("promedio_valor_sancion"),
+        months_between(current_date(), max("fecha_de_publicacion")).alias("meses_desde_ultima_multa")
+    )
+    # result = result.withColumn("nit_entidad", concat(result["nit_entidad"], lit("0")))
+    return result
+
+def left_join_dataframes(df1, df2, df1_key, df2_key):
+    joined_df = df1.join(df2, df1[df1_key] == df2[df2_key], how="left")
+    return joined_df
