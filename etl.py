@@ -351,13 +351,14 @@ pyspark_etl_functions.analyze_data_quality(multas_df)
 
 # Read the data and process it using the aggregate_multas_data function
 aggregated_multas = pyspark_etl_functions.aggregate_multas_data(multas_df)
+aggregated_multas = aggregated_multas.withColumnRenamed("nit_entidad", "nit_entidad_multas")
 aggregated_multas.show(5)
 
 
 # In[ ]:
 
 
-result_df = pyspark_etl_functions.left_join_dataframes(infraestructura_df_no_cero, aggregated_multas, "NIT_ENTIDAD", "nit_entidad")
+result_df = pyspark_etl_functions.left_join_dataframes(infraestructura_df_no_cero, aggregated_multas, "NIT_ENTIDAD", "nit_entidad_multas")
 
 
 # In[ ]:
@@ -372,7 +373,7 @@ result_df.orderBy(F.desc("numero_de_multas")).show(5)
 # In[ ]:
 
 
-result_df = result_df.drop("nit_entidad")
+result_df = result_df.drop("nit_entidad_multas")
 
 
 # In[ ]:
@@ -391,4 +392,27 @@ result_df = result_df.drop(*duplicate_columns)
 
 
 result_df.write.csv("etl_data/contratistas_df.csv", mode="overwrite", header=True)
+
+
+# In[ ]:
+
+
+# jupyter nbconvert --to script etl.ipynb
+
+
+# import subprocess
+# subprocess.run(["python3", "nombre.py"])
+
+
+
+# def my_function():
+#     print("Hello, World!")
+
+# if __name__ == "__main__":
+#     my_function()
+
+# import nombre
+
+# nombre.my_function()
+
 
