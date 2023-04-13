@@ -94,7 +94,6 @@ def find_optimal_clusters(data, max_clusters=10):
     kmeans.fit(data)
     labels = kmeans.labels_
 
-    # Plot the firsttwo components colored by cluster
     plt.scatter(data[:, 0], data[:, 1], c=labels, cmap='viridis', s=5)
     plt.xlabel("Component 1")
     plt.ylabel("Component 2")
