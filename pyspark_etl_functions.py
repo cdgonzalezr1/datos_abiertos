@@ -81,7 +81,7 @@ def seleccionar_columnas(df, columnas):
     return df.select(columnas)
 
 
-def agregar_por_nit_entidad(df):
+def agregar_por_id_contratista(df):
     agg_exprs = [
         F.count("*").alias("num_contratos"),
         F.sum("VALOR_TOTAL_CONTRATO").alias("suma_valor_total_contrato"),
@@ -96,7 +96,7 @@ def agregar_por_nit_entidad(df):
     ]
     
     df_agregado = (
-        df.groupBy("NIT_ENTIDAD", "NOMBRE_ENTIDAD")
+        df.groupBy("ID_CONTRATISTA", "RAZON_SOCIAL_CONTRATISTA")
         .agg(*agg_exprs)
         .withColumn(
             "meses_desde_ultimo_contrato",
@@ -114,7 +114,7 @@ def pivotar_por_columna(df, columna):
     valores = df.select(columna).distinct().rdd.flatMap(lambda x: x).collect()
 
     df_pivote = (
-        df.groupBy("NIT_ENTIDAD", "NOMBRE_ENTIDAD")
+        df.groupBy("ID_CONTRATISTA", "RAZON_SOCIAL_CONTRATISTA")
         .pivot(columna, valores)
         .count()
         .fillna(0)
@@ -123,11 +123,11 @@ def pivotar_por_columna(df, columna):
     return df_pivote
 
 def unir_dataframes(df1, df2):
-    df_unido = df1.join(df2, on=["NIT_ENTIDAD", "NOMBRE_ENTIDAD"], how="inner")
+    df_unido = df1.join(df2, on=["ID_CONTRATISTA", "RAZON_SOCIAL_CONTRATISTA"], how="inner")
     return df_unido
 
 def aggregate_multas_data(multas_df):
-    result = multas_df.groupBy("nit_entidad").agg(
+    result = multas_df.groupBy("documento_contratista").agg(
         count("*").alias("numero_de_multas"),
         sum("valor_sancion").alias("suma_valor_sancion"),
         avg("valor_sancion").alias("promedio_valor_sancion"),
