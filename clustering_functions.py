@@ -7,6 +7,13 @@ import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
 import matplotlib.pyplot as plt
+from sklearn.manifold import TSNE
+from sklearn.decomposition import PCA
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+import plotly.io as plt_io
+import plotly.graph_objects as go
+from sklearn.manifold import Isomap
+
 
 
 def read_partitioned_csv(path):
@@ -63,6 +70,67 @@ def apply_umap(df, n_components):
     return umap_data, explained_variance_ratio_cumsum
 
 
+def apply_pca(df, n_components):
+    pca_model = PCA(n_components=n_components, random_state=42)
+    pca_data = pca_model.fit_transform(df)
+    
+    plt.scatter(pca_data[:, 0], pca_data[:, 1], s=5)
+    plt.xlabel("Component 1")
+    plt.ylabel("Component 2")
+    plt.title("PCA Visualization")
+    plt.show()
+    
+    explained_variance_ratio_cumsum = np.cumsum(pca_model.explained_variance_ratio_)
+    
+    return pca_data, explained_variance_ratio_cumsum
+
+
+def apply_tsne(df, n_components, perplexity=30):
+    tsne_model = TSNE(n_components=n_components, perplexity=perplexity, random_state=42)
+    tsne_data = tsne_model.fit_transform(df)
+    
+    plt.scatter(tsne_data[:, 0], tsne_data[:, 1], s=5)
+    plt.xlabel("Component 1")
+    plt.ylabel("Component 2")
+    plt.title("t-SNE Visualization")
+    plt.show()
+    
+    return tsne_data
+
+
+def apply_lda(df, labels, n_components):
+    lda_model = LinearDiscriminantAnalysis(n_components=n_components)
+    lda_data = lda_model.fit_transform(df, labels)
+    
+    plt.scatter(lda_data[:, 0], lda_data[:, 1], c=labels, s=5, cmap='viridis')
+    plt.xlabel("Component 1")
+    plt.ylabel("Component 2")
+    plt.title("LDA Visualization")
+    plt.show()
+    
+    explained_variance_ratio_cumsum = np.cumsum(lda_model.explained_variance_ratio_)
+    
+    return lda_data, explained_variance_ratio_cumsum
+
+
+
+def plot_3d(component1,component2,component3):
+    fig = go.Figure(data=[go.Scatter3d(
+        x=component1,
+        y=component2,
+        z=component3,
+        mode='markers',
+        marker=dict(
+            size=10, #color=y, 
+            colorscale='Rainbow', 
+            opacity=1,
+            line_width=1
+        )
+    )])
+    fig.update_layout(margin=dict(l=50,r=50,b=50,t=50),width=1800,height=1000)
+    fig.layout.template = 'plotly_dark'
+    
+    fig.show()
 
 
 def find_optimal_clusters(data, max_clusters=10):
