@@ -158,11 +158,54 @@ Se aplicaron tres técnicas de clustering: K-means, Agglomerative Clustering y O
 ### K-means:
 K-means es un algoritmo de clustering basado en la partición que agrupa los datos en K clusters, minimizando la suma de las distancias al cuadrado entre los puntos y los centroides de los clusters a los que pertenecen. La función find_optimal_clusters se utiliza para determinar el número óptimo de clusters a utilizar en el algoritmo K-means. Se calcula la suma de las distancias al cuadrado dentro del cluster (WCSS) para un rango de números de clusters, y se grafica la relación entre el número de clusters y la WCSS en un gráfico de codo. El número óptimo de clusters se elige en el punto en el que se observa un cambio significativo en la tasa de disminución de la WCSS.
 
+<p align="center">
+  <img src="img/elbow_kmeans.png"
+         alt="Elbow"
+         width="500" height="300">
+</p>
+<center>Figura 7. Elbow Kmeans</center>
+
+
+<p align="center">
+  <img src="img/clusters_kmeans.png"
+         alt="clusters_kmeans"
+         width="500" height="300">
+</p>
+<center>Figura 8. clusters_kmeans</center>
+
 ### Agglomerative Clustering:
 El clustering aglomerativo es un enfoque jerárquico que construye un árbol de clusters (dendrograma) fusionando los clusters más cercanos en cada etapa. La función perform_agglomerative_clustering_and_plot_dendrogram se utiliza para aplicar el algoritmo de clustering aglomerativo y trazar el dendrograma resultante. El número óptimo de clusters se elige en función de la estructura del dendrograma, y se utiliza la técnica de 'ward' para calcular las distancias entre los clusters.
 
+<p align="center">
+  <img src="img/dendrogram.png"
+         alt="dendrogram"
+         width="500" height="300">
+</p>
+<center>Figura 9. dendrograma</center>
+
+<p align="center">
+  <img src="img/clusters_hiherarchic.png"
+         alt="clusters_hiherarchic"
+         width="500" height="300">
+</p>
+<center>Figura 10. clusters hiherarchic</center>
+
 ### OPTICS (Ordering Points To Identify the Clustering Structure):
 El algoritmo OPTICS es un enfoque basado en la densidad que identifica automáticamente los clusters en función de la densidad de los puntos en el espacio de datos. La función perform_optics_clustering se utiliza para aplicar el algoritmo OPTICS. Para determinar el valor óptimo de eps (para el alcance de búsqueda local) y min_samples (para el número mínimo de puntos en un cluster), se emplea un enfoque basado en el cálculo de las distancias k-vecinas. Se calcula la matriz de distancias k-vecinas y se grafica la relación entre las distancias k-vecinas y los puntos en el espacio de datos. El valor óptimo de eps se selecciona en función de la gráfica de distancias k-vecinas, mientras que min_samples se establece en función del tamaño del conjunto de datos (un 1% del total de puntos).
+
+<p align="center">
+  <img src="img/k_distance_optics.png"
+         alt="k_distance_optics"
+         width="500" height="300">
+</p>
+<center>Figura 11. k_distance_optics</center>
+
+<p align="center">
+  <img src="img/optics.png"
+         alt="optics"
+         width="500" height="300">
+</p>
+<center>Figura 12. clusters optics</center>
 
 Una vez que se han aplicado las técnicas de clustering, se evalúa la calidad y la interpretabilidad de los resultados obtenidos. Para ello, se emplean métricas como el coeficiente de silueta y se analizan las características de los clusters identificados.
 
