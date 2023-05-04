@@ -92,14 +92,43 @@ Inicialmente, se lee el archivo CSV resultante del proceso ETL y se crea un Data
 ### UMAP
 Uniform Manifold Approximation and Projection (UMAP) es una técnica de reducción de dimensionalidad no lineal que permite visualizar estructuras de alta dimensión en un espacio bidimensional o tridimensional. En este caso, se emplea la función apply_umap para aplicar el algoritmo UMAP al DataFrame escalado, ajustando el modelo y transformando los datos en función de sus componentes principales. La varianza explicada por cada componente se calcula y se representa gráficamente.
 
+<p align="center">
+  <img src="img/umap.png"
+         alt="UMAP"
+         width="500" height="300">
+</p>
+<center>Figura 3. Vista de los 3 primeros componentes UMAP</center>
+
+
 ### PCA
 Principal Component Analysis (PCA) es una técnica lineal de reducción de dimensionalidad que busca encontrar las direcciones de mayor varianza en los datos de alta dimensión. Se aplica la función apply_pca al DataFrame escalado, ajustando el modelo PCA y transformando los datos en función de sus componentes principales. La varianza explicada acumulada se calcula y se representa gráficamente.
+
+<p align="center">
+  <img src="img/pca.png"
+         alt="PCA"
+         width="500" height="300">
+</p>
+<center>Figura 4. Vista de los 3 primeros componentes PCA</center>
 
 ### t-SNE
 t-Distributed Stochastic Neighbor Embedding (t-SNE) es una técnica no lineal de reducción de dimensionalidad que busca preservar las relaciones de proximidad entre los puntos en un espacio de alta dimensión. Se aplica la función apply_tsne al DataFrame escalado para ajustar el modelo t-SNE y transformar los datos en función de sus componentes principales.
 
+<p align="center">
+  <img src="img/tsne.png"
+         alt="TSNE"
+         width="500" height="300">
+</p>
+<center>Figura 5. Vista de los 3 primeros componentes t-SNE</center>
+
 ### LDA
 Linear Discriminant Analysis (LDA) es una técnica lineal de reducción de dimensionalidad que busca maximizar la separabilidad entre clases en un espacio de alta dimensión. Se aplica la función apply_lda al DataFrame escalado, proporcionando las etiquetas de clase y ajustando el modelo LDA. La varianza explicada acumulada se calcula y se representa gráficamente.
+
+<p align="center">
+  <img src="img/lda.png"
+         alt="LDA"
+         width="500" height="300">
+</p>
+<center>Figura 6. Vista de los 3 primeros componentes LDA</center>
 
 ### Visualización en 3D
 La función plot_3d se utiliza para visualizar las tres primeras componentes principales de los datos transformados en un gráfico tridimensional. Esto facilita la identificación de agrupaciones y patrones en los datos, lo que a su vez puede ser útil para detectar y prevenir prácticas indebidas en la asignación de contratos públicos de infraestructura en Colombia.
