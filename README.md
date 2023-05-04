@@ -1,6 +1,15 @@
 # Indicador de Justa Asignación: Riesgos y Contrataciones Irregulares en Infraestructura
 
-El presente proyecto busca asistir a las entidades gubernamentales de Colombia en la detección y prevención de prácticas indebidas en la asignación de contratos públicos de infraestructura. A través del análisis de datos provenientes de tres fuentes principales - SECOP Integrado, PACO y datos públicos de transparencia, lucha contra la corrupción, sanciones y multas - el objetivo es minimizar la exposición de estas entidades a contratos poco transparentes, incumplidos o corruptos.
+_Grupo de trabajo: Alan Yovany Gasca, Christian David González, Jolman Salinas_
+
+_Proyecto aplicado en analítica de datos_
+
+_MIAD_
+
+_Universidad de los Andes_
+
+
+> El presente proyecto busca asistir a las entidades gubernamentales de Colombia en la detección y prevención de prácticas indebidas en la asignación de contratos públicos de infraestructura. A través del análisis de datos provenientes de tres fuentes principales - SECOP Integrado, PACO y datos públicos de transparencia, lucha contra la corrupción, sanciones y multas - el objetivo es minimizar la exposición de estas entidades a contratos poco transparentes, incumplidos o corruptos.
 
 ## Proceso ETL
 
@@ -25,6 +34,13 @@ Para llevar a cabo este análisis, se implementa un proceso ETL (Extracción, Tr
 - **Selección de columnas relevantes**: Se utiliza la función seleccionar_columnas con una lista de columnas de interés (columnas_a_conservar) para reducir el número de columnas en el DataFrame infraestructura_df_limpio_2_anos. Se guarda el resultado en infraestructura_df_seleccionado.
 
 - **Escritura de resultados en CSV**: Finalmente, el DataFrame resultante, infraestructura_df_seleccionado, se guarda en un archivo CSV llamado "contratos_infraestructura_df.csv" en la carpeta "etl_data".
+
+<p align="center">
+  <img src="img/vista_datos_contratos.png"
+         alt="Vista contratos"
+         width="500" height="200">
+</p>
+<center>Figura 1. Vista del DataFrame de contratos transformado</center>
 
 A través de este proceso ETL, se garantiza la calidad y relevancia de los datos analizados, permitiendo a las entidades gubernamentales colombianas identificar y prevenir situaciones de riesgo en la asignación de contratos públicos de infraestructura. El resultado de este análisis es un archivo CSV que contiene información detallada y depurada sobre los contratos de infraestructura en los últimos dos años, facilitando la toma de decisiones y el monitoreo de posibles irregularidades en el proceso de contratación.
 
