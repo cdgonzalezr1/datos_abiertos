@@ -165,6 +165,9 @@ K-means es un algoritmo de clustering basado en la partición que agrupa los dat
 </p>
 <center>Figura 7. Elbow Kmeans</center>
 
+se utilizó el método del codo (Elbow Method), que consiste en calcular la suma de las distancias al cuadrado (WCSS) entre los puntos de cada cluster y su centroide para diferentes valores de K. A medida que aumenta el número de clusters, Al aplicar el método del codo en este análisis, se graficó la WCSS en función del número de clusters, y se observó que el punto de inflexión, es decir, el punto en el que el cambio en la WCSS se vuelve menos pronunciado, ocurrió en K=7. Por lo tanto, se decidió utilizar 7 clusters para el algoritmo K-means en este estudio.
+
+Con base en esta selección, se aplicó el algoritmo K-means con 7 clusters y se obtuvieron agrupaciones de entidades gubernamentales que permiten identificar patrones y perfiles de riesgo en la contratación pública en Colombia.
 
 <p align="center">
   <img src="img/clusters_kmeans.png"
@@ -183,6 +186,10 @@ El clustering aglomerativo es un enfoque jerárquico que construye un árbol de 
 </p>
 <center>Figura 9. dendrograma</center>
 
+Para determinar el número óptimo de clusters en el enfoque de clustering jerárquico, se utilizó el dendrograma, que es una representación gráfica en forma de árbol que ilustra la disposición de los clusters y las relaciones jerárquicas entre ellos. Al observar el dendrograma, se pueden identificar los clusters mediante la selección de un nivel de corte en el eje vertical, que indica la distancia o disimilitud en la que se fusionan los clusters.
+
+En este análisis, se empleó el enfoque de clustering jerárquico aglomerativo con la medida de distancia euclidiana y el método de enlace de Ward, que minimiza la varianza dentro de los clusters. Al graficar el dendrograma y analizar las fusiones de los clusters, se determinó que el número óptimo de clusters para este caso era de 7. Esta selección se basó en la observación de la altura en la que se producían fusiones significativas y la coherencia de los clusters resultantes.
+
 <p align="center">
   <img src="img/clusters_hiherarchic.png"
          alt="clusters_hiherarchic"
@@ -200,6 +207,10 @@ El algoritmo OPTICS es un enfoque basado en la densidad que identifica automáti
 </p>
 <center>Figura 11. k_distance_optics</center>
 
+Un aspecto clave en la aplicación del algoritmo OPTICS es la determinación del valor óptimo de epsilon (ε), que es el radio máximo alrededor de un punto para considerar a otros puntos como parte de su vecindario. Para encontrar este valor, se utilizó un enfoque basado en k vecinos. Concretamente, se empleó el método de los k vecinos más cercanos (k-nearest neighbors, k-NN) para calcular las distancias entre las observaciones del conjunto de datos.
+
+Se ajustó un modelo de k vecinos más cercanos utilizando un valor predefinido de k, y se calcularon las distancias entre cada punto y su k-ésimo vecino más cercano. Estas distancias se ordenaron de manera ascendente y se graficaron en un gráfico de k-distancias. Al observar este gráfico, se identificó un "codo" o punto de inflexión, que indicaba el valor de epsilon óptimo para ser utilizado en el algoritmo OPTICS.
+
 <p align="center">
   <img src="img/optics.png"
          alt="optics"
@@ -208,6 +219,19 @@ El algoritmo OPTICS es un enfoque basado en la densidad que identifica automáti
 <center>Figura 12. clusters optics</center>
 
 Una vez que se han aplicado las técnicas de clustering, se evalúa la calidad y la interpretabilidad de los resultados obtenidos. Para ello, se emplean métricas como el coeficiente de silueta y se analizan las características de los clusters identificados.
+
+| Algoritmo de Clustering | Coeficiente de Silueta |
+|--------|------------------------|
+| K-means    | 73%                    |
+| Clustering Jerárquico    | 72%                    |
+| OPTICS  | 45%                   |
+
+
+Tras la aplicación de los algoritmos K-means y clustering jerárquico, se observó que los resultados de los coeficientes de silueta y la estructura de los clusters eran muy similares entre ambos métodos. Esto indica que ambos algoritmos lograron identificar patrones y agrupaciones consistentes en el conjunto de datos.
+
+Por otro lado, el algoritmo OPTICS también fue capaz de detectar grupos pequeños y realmente diferentes en el conjunto de datos. Sin embargo, este algoritmo dejó una masa muy grande de observaciones sin diferenciar de manera adecuada, lo que sugiere que OPTICS no fue tan efectivo para segmentar y extraer información útil de este conjunto de datos en particular.
+
+Teniendo en cuenta estos resultados, se decidió seleccionar el algoritmo K-means como el método de agrupamiento final para este proyecto. La elección de K-means se basa en su capacidad para generar clusters cohesivos y bien separados, como lo demuestran los coeficientes de silueta similares a los del clustering jerárquico, y en su eficiencia computacional en comparación con los otros dos algoritmos. Además, K-means permite una mayor diferenciación de la masa de observaciones que no pudo ser segmentada adecuadamente por el algoritmo OPTICS.
 
 ### Descrpción de los clusters
 
