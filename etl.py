@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[3]:
+# In[1]:
 
 
 import pandas as pd
@@ -41,7 +41,7 @@ lectura_paco_secop.download_and_save_csv(url, filename)
 
 # # Quality PACO_secop
 
-# In[7]:
+# In[2]:
 
 
 filename = 'SECOP_II_Cleaned.csv'
@@ -55,7 +55,7 @@ paco_secop_df.show(5)
 # pyspark_etl_functions.analyze_data_quality(paco_secop_df)
 
 
-# In[9]:
+# In[3]:
 
 
 nombre_familia_df = paco_secop_df.select('NOMBRE_FAMILIA').distinct().toPandas()
@@ -69,7 +69,7 @@ print(nombre_familia_df)
 # - AMBIENTE Y DESARROLLO SOSTENIBLE: Puede incluir infraestructuras sostenibles y proyectos relacionados con el medio ambiente, como plantas de tratamiento de agua y sistemas de gestión de residuos.
 # 
 
-# In[10]:
+# In[4]:
 
 
 infraestructura_categorias = [
@@ -90,48 +90,48 @@ infraestructura_df.show()
 pyspark_etl_functions.analyze_data_quality(infraestructura_df)
 
 
-# In[12]:
+# In[5]:
 
 
-distinct_entity_names = infraestructura_df.groupBy("ID_CONTRATISTA").agg(
-    countDistinct("RAZON_SOCIAL_CONTRATISTA").alias("cantidad_razon_social_distintos")
+distinct_entity_names = infraestructura_df.groupBy("NIT_ENTIDAD").agg(
+    countDistinct("NOMBRE_ENTIDAD").alias("cantidad_nombre_entidad_distintos")
 )
  
-distinct_entity_names.orderBy("cantidad_razon_social_distintos", ascending=False).show()
+distinct_entity_names.orderBy("cantidad_nombre_entidad_distintos", ascending=False).show()
 
 
-# In[13]:
+# In[6]:
 
 
-nit_filtered_df = infraestructura_df.filter(infraestructura_df.ID_CONTRATISTA == 899999061)
+nit_filtered_df = infraestructura_df.filter(infraestructura_df.NIT_ENTIDAD == 899999114)
 
-distinct_nombre_entidad = nit_filtered_df.select("RAZON_SOCIAL_CONTRATISTA").distinct()
+distinct_nombre_entidad = nit_filtered_df.select("NOMBRE_ENTIDAD").distinct()
 
 nombre_entidad_rows = distinct_nombre_entidad.collect()
 
-nombre_entidad_list = [row.RAZON_SOCIAL_CONTRATISTA for row in nombre_entidad_rows]
+nombre_entidad_list = [row.NOMBRE_ENTIDAD for row in nombre_entidad_rows]
 
 print(nombre_entidad_list)
 
 
 # ## ETL
 
-# In[14]:
+# In[7]:
 
 
-columnas_referencia = ['REFERENCIA_CONTRATO','ID_CONTRATISTA']
+columnas_referencia = ['REFERENCIA_CONTRATO','NIT_ENTIDAD']
 infraestructura_df_limpio = pyspark_etl_functions.limpiar_nulos_y_duplicados(paco_secop_df, columnas_referencia)
 infraestructura_df_limpio.show()
 
 
-# In[15]:
+# In[8]:
 
 
 infraestructura_df_limpio_2_anos = pyspark_etl_functions.filtrar_ultimos_anos(infraestructura_df_limpio, 2)
 infraestructura_df_limpio_2_anos.show()
 
 
-# In[16]:
+# In[9]:
 
 
 columnas_a_conservar = [
@@ -145,104 +145,104 @@ infraestructura_df_seleccionado = pyspark_etl_functions.seleccionar_columnas(inf
 infraestructura_df_seleccionado.show()
 
 
-# In[17]:
+# In[10]:
 
 
 infraestructura_df_seleccionado.write.csv("etl_data/contratos_infraesructura_df.csv", mode="overwrite", header=True)
 
 
-# In[18]:
+# In[11]:
 
 
-infraestructura_df_agregado = pyspark_etl_functions.agregar_por_id_contratista(infraestructura_df_seleccionado)
+infraestructura_df_agregado = pyspark_etl_functions.agregar_por_nit_entidad(infraestructura_df_seleccionado)
 infraestructura_df_agregado.show()
 
 
-# In[19]:
+# In[12]:
 
 
 infraestructura_df_pivotado = pyspark_etl_functions.pivotar_por_columna(infraestructura_df_seleccionado, "DEPARTAMENTO")
 infraestructura_df_pivotado.show()
 
 
-# In[20]:
+# In[13]:
 
 
 infraestructura_df_agregado_y_pivotado = pyspark_etl_functions.unir_dataframes(infraestructura_df_agregado, infraestructura_df_pivotado)
 infraestructura_df_agregado_y_pivotado.show()
 
 
-# In[21]:
+# In[14]:
 
 
 infraestructura_df_pivotado = pyspark_etl_functions.pivotar_por_columna(infraestructura_df_seleccionado, "ESTADO_DEL_PROCESO")
 infraestructura_df_pivotado.show()
 
 
-# In[22]:
+# In[15]:
 
 
 infraestructura_df_agregado_y_pivotado = pyspark_etl_functions.unir_dataframes(infraestructura_df_agregado_y_pivotado, infraestructura_df_pivotado)
 infraestructura_df_agregado_y_pivotado.show()
 
 
-# In[23]:
+# In[16]:
 
 
 infraestructura_df_pivotado = pyspark_etl_functions.pivotar_por_columna(infraestructura_df_seleccionado, "CLASE_PROCESO")
 infraestructura_df_pivotado.show()
 
 
-# In[24]:
+# In[17]:
 
 
 infraestructura_df_agregado_y_pivotado = pyspark_etl_functions.unir_dataframes(infraestructura_df_agregado_y_pivotado, infraestructura_df_pivotado)
 infraestructura_df_agregado_y_pivotado.show()
 
 
-# In[25]:
+# In[18]:
 
 
 infraestructura_df_pivotado = pyspark_etl_functions.pivotar_por_columna(infraestructura_df_seleccionado, "TIPO_PROCESO")
 infraestructura_df_pivotado.show()
 
 
-# In[26]:
+# In[19]:
 
 
 infraestructura_df_agregado_y_pivotado = pyspark_etl_functions.unir_dataframes(infraestructura_df_agregado_y_pivotado, infraestructura_df_pivotado)
 infraestructura_df_agregado_y_pivotado.show()
 
 
-# In[27]:
+# In[20]:
 
 
 infraestructura_df_pivotado = pyspark_etl_functions.pivotar_por_columna(infraestructura_df_seleccionado, "NOMBRE_FAMILIA")
 infraestructura_df_pivotado.show()
 
 
-# In[28]:
+# In[21]:
 
 
 infraestructura_df_agregado_y_pivotado = pyspark_etl_functions.unir_dataframes(infraestructura_df_agregado_y_pivotado, infraestructura_df_pivotado)
 infraestructura_df_agregado_y_pivotado.show()
 
 
-# In[29]:
+# In[22]:
 
 
 infraestructura_df_pivotado = pyspark_etl_functions.pivotar_por_columna(infraestructura_df_seleccionado, "NOMBRE_CLASE")
 infraestructura_df_pivotado.show()
 
 
-# In[30]:
+# In[23]:
 
 
 infraestructura_df_agregado_y_pivotado = pyspark_etl_functions.unir_dataframes(infraestructura_df_agregado_y_pivotado, infraestructura_df_pivotado)
 infraestructura_df_agregado_y_pivotado.show()
 
 
-# In[31]:
+# In[24]:
 
 
 infraestructura_df_ordenado = infraestructura_df_agregado_y_pivotado.orderBy(F.desc("num_contratos"))
@@ -250,7 +250,7 @@ infraestructura_df_ordenado = infraestructura_df_agregado_y_pivotado.orderBy(F.d
 infraestructura_df_ordenado.show()
 
 
-# In[32]:
+# In[25]:
 
 
 def separar_dataframe(df):
@@ -259,7 +259,7 @@ def separar_dataframe(df):
     return df_cero, df_no_cero
 
 
-# In[33]:
+# In[26]:
 
 
 infraestructura_df_cero, infraestructura_df_no_cero = separar_dataframe(infraestructura_df_ordenado)
@@ -268,7 +268,7 @@ print("Dataframe con suma_valor_total_contrato = 0:")
 infraestructura_df_no_cero.show()   
 
 
-# In[34]:
+# In[27]:
 
 
 num_filas_cero = infraestructura_df_cero.count()
@@ -332,7 +332,7 @@ print("Número de filas con suma_valor_total_contrato != 0:", num_filas_no_cero)
 
 # # Quality multas
 
-# In[39]:
+# In[28]:
 
 
 filename = 'multas_SECOP.csv'
@@ -346,22 +346,22 @@ multas_df.show(5)
 pyspark_etl_functions.analyze_data_quality(multas_df)
 
 
-# In[41]:
+# In[29]:
 
 
 # Read the data and process it using the aggregate_multas_data function
 aggregated_multas = pyspark_etl_functions.aggregate_multas_data(multas_df)
-aggregated_multas = aggregated_multas.withColumnRenamed("documento_contratista", "documento_contratista_multas")
+aggregated_multas = aggregated_multas.withColumnRenamed("nit_entidad", "nit_entidad_multas")
 aggregated_multas.show(5)
 
 
-# In[42]:
+# In[30]:
 
 
-result_df = pyspark_etl_functions.left_join_dataframes(infraestructura_df_no_cero, aggregated_multas, "ID_CONTRATISTA", "documento_contratista_multas")
+result_df = pyspark_etl_functions.left_join_dataframes(infraestructura_df_no_cero, aggregated_multas, "NIT_ENTIDAD", "nit_entidad_multas")
 
 
-# In[43]:
+# In[31]:
 
 
 # Check the joined dataframe
@@ -370,13 +370,13 @@ result_df.orderBy(F.desc("numero_de_multas")).show(5)
 # result_df.show(5)
 
 
-# In[44]:
+# In[32]:
 
 
-result_df = result_df.drop("documento_contratista_multas")
+result_df = result_df.drop("nit_entidad_multas")
 
 
-# In[45]:
+# In[33]:
 
 
 from collections import Counter
@@ -388,10 +388,10 @@ duplicate_columns = [col for col, count in column_counts.items() if count > 1]
 result_df = result_df.drop(*duplicate_columns)
 
 
-# In[46]:
+# In[34]:
 
 
-result_df.write.csv("etl_data/contratistas_df.csv", mode="overwrite", header=True)
+result_df.write.csv("etl_data/entidades_df.csv", mode="overwrite", header=True)
 
 
 # In[47]:
