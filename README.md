@@ -150,3 +150,64 @@ La función plot_3d se utiliza para visualizar las tres primeras componentes pri
 A medida que se aplican estas técnicas de reducción de dimensionalidad, es importante evaluar y comparar su eficacia en función de la varianza explicada y la capacidad para preservar las relaciones de proximidad entre los puntos. Algunas técnicas, como PCA y LDA, son lineales y pueden no ser adecuadas para capturar relaciones no lineales en los datos. Por otro lado, UMAP y t-SNE son técnicas no lineales que pueden ser más efectivas en estos casos. Sin embargo, es fundamental realizar pruebas y comparaciones exhaustivas para determinar cuál de estas técnicas es la más adecuada en función de los objetivos y las características del conjunto de datos específico.
 
 Además, la visualización en 3D de las componentes principales resultantes puede ser útil para identificar agrupaciones y patrones en los datos. Estos patrones pueden proporcionar información valiosa para las entidades gubernamentales de Colombia que otorgan contratos públicos de infraestructura, ayudándoles a detectar y prevenir la exposición a prácticas indebidas en la asignación de contratos. En última instancia, este enfoque de reducción de dimensionalidad y análisis puede contribuir a garantizar una mayor transparencia, eficiencia y rendición de cuentas en la contratación pública en Colombia.
+
+## Metodologías de clustering
+
+Se aplicaron tres técnicas de clustering: K-means, Agglomerative Clustering y OPTICS. A continuación, se presenta una descripción detallada de cada técnica y su aplicación en el proyecto:
+
+### K-means:
+K-means es un algoritmo de clustering basado en la partición que agrupa los datos en K clusters, minimizando la suma de las distancias al cuadrado entre los puntos y los centroides de los clusters a los que pertenecen. La función find_optimal_clusters se utiliza para determinar el número óptimo de clusters a utilizar en el algoritmo K-means. Se calcula la suma de las distancias al cuadrado dentro del cluster (WCSS) para un rango de números de clusters, y se grafica la relación entre el número de clusters y la WCSS en un gráfico de codo. El número óptimo de clusters se elige en el punto en el que se observa un cambio significativo en la tasa de disminución de la WCSS.
+
+### Agglomerative Clustering:
+El clustering aglomerativo es un enfoque jerárquico que construye un árbol de clusters (dendrograma) fusionando los clusters más cercanos en cada etapa. La función perform_agglomerative_clustering_and_plot_dendrogram se utiliza para aplicar el algoritmo de clustering aglomerativo y trazar el dendrograma resultante. El número óptimo de clusters se elige en función de la estructura del dendrograma, y se utiliza la técnica de 'ward' para calcular las distancias entre los clusters.
+
+### OPTICS (Ordering Points To Identify the Clustering Structure):
+El algoritmo OPTICS es un enfoque basado en la densidad que identifica automáticamente los clusters en función de la densidad de los puntos en el espacio de datos. La función perform_optics_clustering se utiliza para aplicar el algoritmo OPTICS. Para determinar el valor óptimo de eps (para el alcance de búsqueda local) y min_samples (para el número mínimo de puntos en un cluster), se emplea un enfoque basado en el cálculo de las distancias k-vecinas. Se calcula la matriz de distancias k-vecinas y se grafica la relación entre las distancias k-vecinas y los puntos en el espacio de datos. El valor óptimo de eps se selecciona en función de la gráfica de distancias k-vecinas, mientras que min_samples se establece en función del tamaño del conjunto de datos (un 1% del total de puntos).
+
+Una vez que se han aplicado las técnicas de clustering, se evalúa la calidad y la interpretabilidad de los resultados obtenidos. Para ello, se emplean métricas como el coeficiente de silueta y se analizan las características de los clusters identificados.
+
+### Descrpción de los clusters
+
+#### Cluster 1 
+> Pequeños Contratos con Bajas Multas:
+Este cluster agrupa a entidades que otorgan en promedio 35 contratos con un valor total aproximado de 4,73 mil millones de pesos. Han sido multados en promedio 2 veces con un valor total de multas de alrededor de 260 mil pesos. El tiempo desde la última multa es de aproximadamente 20 meses. Operan principalmente en Santander, Cauca y Antioquia.
+
+#### Cluster 2
+> Contratos Medianos con Multas Moderadas:
+En este cluster, las entidades otorgan alrededor de 148 contratos con un valor total de 56 mil millones de pesos. Han sido multadas en promedio 7 veces con un valor total de multas de alrededor de 9,6 millones de pesos. El tiempo desde la última multa es de aproximadamente 19 meses. Operan principalmente en Antioquia, Bogotá y Valle del Cauca.
+
+#### Cluster 3
+> Grandes Contratos con Altas Multas:
+Este cluster incluye entidades que otorgan en promedio 458 contratos con un valor total de 71,7 mil millones de pesos. Han sido multadas en promedio 5 veces con un valor total de multas de alrededor de 511 millones de pesos. El tiempo desde la última multa es de aproximadamente 19 meses. Operan principalmente en Bogotá, Antioquia y Valle del Cauca.
+
+
+#### Cluster 4
+> Contratos Mínimos con Mínimas Multas:
+Las entidades en este cluster otorgan en promedio 4 contratos con un valor total de aproximadamente 453 millones de pesos. Han sido multadas en promedio 1 vez con un valor total de multas de alrededor de 116 mil pesos. El tiempo desde la última multa es de aproximadamente 24 meses. Operan principalmente en Santander y Nariño.
+
+
+#### Cluster 5
+> Contratos Bajos con Multas Bajas:
+Este cluster agrupa a entidades que otorgan en promedio 9 contratos con un valor total de aproximadamente 576 millones de pesos. Han sido multadas en promedio 2 veces con un valor total de multas de alrededor de 1,16 millones de pesos. El tiempo desde la última multa es de aproximadamente 20 meses. Operan principalmente en Bogotá, Antioquia y Tolima.
+
+
+#### Cluster 6
+> Contratos Múltiples con Multas Múltiples:
+Las entidades en este cluster otorgan en promedio 300 contratos con un valor total de aproximadamente 29,3 mil millones de pesos. Han sido multadas en promedio 15 veces con un valor total de multas de alrededor de 70,6 millones de pesos. El tiempo desde la última multa es de aproximadamente 14 meses. Operan principalmente en Bogotá, Antioquia y Valle del Cauca.
+
+
+#### Cluster 7
+> Contratos Moderados con Multas Significativas:
+En este cluster, las entidades otorgan alrededor de 75 contratos con un valor total de 11,7 mil millones de pesos. Han sido multadas en promedio 10 veces con un valor total de multas de alrededor de 152 millones de pesos. El tiempo desde la última multa es de aproximadamente 16 meses. Operan principalmente en Antioquia, Bogotá y Atlántico.
+
+### Clusters y sus características principales
+
+| Cluster | Descripción                                                                 | Contratos | Valor Total (COP) | Multas | Valor Total Multas (COP) | Tiempo desde última multa (meses) | Principales regiones         |
+|---------|-----------------------------------------------------------------------------|-----------|------------------|--------|--------------------------|----------------------------------|------------------------------|
+| 1       | Pequeños Contratos con Bajas Multas                                        | 35        | 4,73 mil millones | 2      | 260 mil                 | 20                               | Santander, Cauca, Antioquia  |
+| 2       | Contratos Medianos con Multas Moderadas                                    | 148       | 56 mil millones   | 7      | 9,6 millones            | 19                               | Antioquia, Bogotá, Valle del Cauca |
+| 3       | Grandes Contratos con Altas Multas                                         | 458       | 71,7 mil millones | 5      | 511 millones            | 19                               | Bogotá, Antioquia, Valle del Cauca |
+| 4       | Contratos Mínimos con Mínimas Multas                                       | 4         | 453 millones      | 1      | 116 mil                 | 24                               | Santander, Nariño            |
+| 5       | Contratos Bajos con Multas Bajas                                           | 9         | 576 millones      | 2      | 1,16 millones           | 20                               | Bogotá, Antioquia, Tolima    |
+| 6       | Contratos Múltiples con Multas Múltiples                                   | 300       | 29,3 mil millones | 15     | 70,6 millones           | 14                               | Bogotá, Antioquia, Valle del Cauca |
+| 7       | Contratos Moderados con Multas Significativas                              | 75        | 11,7 mil millones | 10     | 152 millones            | 16                               | Antioquia, Bogotá, Atlántico |
