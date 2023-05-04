@@ -236,45 +236,45 @@ Teniendo en cuenta estos resultados, se decidió seleccionar el algoritmo K-mean
 ### Descrpción de los clusters
 
 #### Cluster 1 
-> Pequeños Contratos con Bajas Multas:
-Este cluster agrupa a entidades que otorgan en promedio 35 contratos con un valor total aproximado de 4,73 mil millones de pesos. Han sido multados en promedio 2 veces con un valor total de multas de alrededor de 260 mil pesos. El tiempo desde la última multa es de aproximadamente 20 meses. Operan principalmente en Santander, Cauca y Antioquia.
+> Pocos Contratos de Monto Alto con Nulas Multas:
+Este cluster agrupa a entidades que otorgan en promedio 35 contratos con un valor promedio aproximado de 914 millones de pesos. Han sido multados en promedio 0 veces con un valor promedio de multas de alrededor de 26 mil pesos. El tiempo desde la última multa es muy alto. Operan principalmente en Santander, Cauca y Antioquia.
 
 #### Cluster 2
-> Contratos Medianos con Multas Moderadas:
-En este cluster, las entidades otorgan alrededor de 148 contratos con un valor total de 56 mil millones de pesos. Han sido multadas en promedio 7 veces con un valor total de multas de alrededor de 9,6 millones de pesos. El tiempo desde la última multa es de aproximadamente 19 meses. Operan principalmente en Antioquia, Bogotá y Valle del Cauca.
+> Contratos Medianos de Moderado Alto con Moderadas Multas:
+En este cluster, las entidades otorgan alrededor de 148 contratos con un valor promedio de 193 millones de pesos. Han sido multadas en promedio 0.3 veces con un valor promedio de multas de alrededor de 962 mil pesos. El tiempo desde la última multa es muy alto. Operan principalmente en Antioquia, Bogotá y Valle del Cauca.
 
 #### Cluster 3
-> Grandes Contratos con Altas Multas:
-Este cluster incluye entidades que otorgan en promedio 458 contratos con un valor total de 71,7 mil millones de pesos. Han sido multadas en promedio 5 veces con un valor total de multas de alrededor de 511 millones de pesos. El tiempo desde la última multa es de aproximadamente 19 meses. Operan principalmente en Bogotá, Antioquia y Valle del Cauca.
+> Muchos Contratos de Monto Moderado con Altas Multas:
+Este cluster incluye entidades que otorgan en promedio 458 contratos con un valor promedio de 157 millones de pesos. Han sido multadas en promedio 3.3 veces (El más alto) con un valor promedio de multas de alrededor de 105 millones de pesos. El tiempo desde la última multa es de aproximadamente 44 meses. Operan principalmente en Bogotá, Antioquia y Valle del Cauca.
 
 
 #### Cluster 4
-> Contratos Mínimos con Mínimas Multas:
-Las entidades en este cluster otorgan en promedio 4 contratos con un valor total de aproximadamente 453 millones de pesos. Han sido multadas en promedio 1 vez con un valor total de multas de alrededor de 116 mil pesos. El tiempo desde la última multa es de aproximadamente 24 meses. Operan principalmente en Santander y Nariño.
+> Pocos Contratos de Monto Medio Alto Mínimos con Mínimas Multas:
+Las entidades en este cluster otorgan en promedio 4 contratos con un valor promedio de aproximadamente 360 millones de pesos. Han sido multadas en promedio 0 veces con un valor promedio de multas de alrededor de 116 mil pesos. El tiempo desde la última multa es de aproximadamente muy alto. Operan principalmente en Santander y Nariño.
 
 
 #### Cluster 5
-> Contratos Bajos con Multas Bajas:
-Este cluster agrupa a entidades que otorgan en promedio 9 contratos con un valor total de aproximadamente 576 millones de pesos. Han sido multadas en promedio 2 veces con un valor total de multas de alrededor de 1,16 millones de pesos. El tiempo desde la última multa es de aproximadamente 20 meses. Operan principalmente en Bogotá, Antioquia y Tolima.
+> Contratos Bajos de Monto Medio con Multas Nulas:
+Este cluster agrupa a entidades que otorgan en promedio 9 contratos con un valor promedio de aproximadamente 127 millones de pesos. Han sido multadas en promedio 0 veces con un valor promedio de multas de 0 millones de pesos. Operan principalmente en Bogotá, Antioquia y Tolima.
 
 
 #### Cluster 6
-> Contratos Múltiples con Multas Múltiples:
-Las entidades en este cluster otorgan en promedio 300 contratos con un valor total de aproximadamente 29,3 mil millones de pesos. Han sido multadas en promedio 15 veces con un valor total de multas de alrededor de 70,6 millones de pesos. El tiempo desde la última multa es de aproximadamente 14 meses. Operan principalmente en Bogotá, Antioquia y Valle del Cauca.
+> Contratos Múltiples de Monto Medio con Multas Moderado-Alto:
+Las entidades en este cluster otorgan en promedio 980 contratos con un valor promedio de aproximadamente 176 millones de pesos. Han sido multadas en promedio 0.4 veces con un valor promedio de multas de alrededor de 12 millones de pesos. El tiempo desde la última multa es muy alto. Operan principalmente en Bogotá, Antioquia y Valle del Cauca.
 
 
 #### Cluster 7
-> Contratos Moderados con Multas Significativas:
-En este cluster, las entidades otorgan alrededor de 75 contratos con un valor total de 11,7 mil millones de pesos. Han sido multadas en promedio 10 veces con un valor total de multas de alrededor de 152 millones de pesos. El tiempo desde la última multa es de aproximadamente 16 meses. Operan principalmente en Antioquia, Bogotá y Atlántico.
+> Contratos Moderados de Monto Muy bajo con Multas Significativas:
+En este cluster, las entidades otorgan alrededor de 143 contratos con un valor promedio de 71 millones de pesos. Han sido multadas en promedio 0 veces con un valor promedio de multas de alrededor de 170 mile pesos. El tiempo desde la última multa es alto. Operan principalmente en Antioquia, Bogotá y Atlántico.
 
 ### Clusters y sus características principales
 
-| Cluster | Descripción                                                                 | Contratos | Valor Total (COP) | Multas | Valor Total Multas (COP) | Tiempo desde última multa (meses) | Principales regiones         |
-|---------|-----------------------------------------------------------------------------|-----------|------------------|--------|--------------------------|----------------------------------|------------------------------|
-| 1       | Pequeños Contratos con Bajas Multas                                        | 35        | 4,73 mil millones | 2      | 260 mil                 | 20                               | Santander, Cauca, Antioquia  |
-| 2       | Contratos Medianos con Multas Moderadas                                    | 148       | 56 mil millones   | 7      | 9,6 millones            | 19                               | Antioquia, Bogotá, Valle del Cauca |
-| 3       | Grandes Contratos con Altas Multas                                         | 458       | 71,7 mil millones | 5      | 511 millones            | 19                               | Bogotá, Antioquia, Valle del Cauca |
-| 4       | Contratos Mínimos con Mínimas Multas                                       | 4         | 453 millones      | 1      | 116 mil                 | 24                               | Santander, Nariño            |
-| 5       | Contratos Bajos con Multas Bajas                                           | 9         | 576 millones      | 2      | 1,16 millones           | 20                               | Bogotá, Antioquia, Tolima    |
-| 6       | Contratos Múltiples con Multas Múltiples                                   | 300       | 29,3 mil millones | 15     | 70,6 millones           | 14                               | Bogotá, Antioquia, Valle del Cauca |
-| 7       | Contratos Moderados con Multas Significativas                              | 75        | 11,7 mil millones | 10     | 152 millones            | 16                               | Antioquia, Bogotá, Atlántico |
+| Cluster | Contratos Promedio | Valor Promedio Contrato (Millones) | Multas Promedio | Valor Promedio Multas (Millones) | Tiempo desde última multa (meses) | Ubicación Principal |
+|---------|--------------------|------------------------------------|-----------------|-----------------------------------|----------------------------------|---------------------|
+| 1       | 35                | 914                                | 0               | 0.026                             | Muy alto                        | Santander, Cauca, Antioquia |
+| 2       | 148               | 193                                | 0.3             | 0.962                             | Muy alto                        | Antioquia, Bogotá, Valle del Cauca |
+| 3       | 458               | 157                                | 3.3             | 105                               | 44                             | Bogotá, Antioquia, Valle del Cauca |
+| 4       | 4                 | 360                                | 0               | 0.116                             | Muy alto                        | Santander, Nariño |
+| 5       | 9                 | 127                                | 0               | 0                                 | -                               | Bogotá, Antioquia, Tolima |
+| 6       | 980               | 176                                | 0.4             | 12                                | Muy alto                        | Bogotá, Antioquia, Valle del Cauca |
+| 7       | 143               | 71                                 | 0               | 0.17                              | Alto                            | Antioquia, Bogotá, Atlántico |
