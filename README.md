@@ -278,3 +278,79 @@ En este cluster, las entidades otorgan alrededor de 143 contratos con un valor p
 | 5       | 9                 | 127                                | 0               | 0                                 | -                               | Bogotá, Antioquia, Tolima |
 | 6       | 980               | 176                                | 0.4             | 12                                | Muy alto                        | Bogotá, Antioquia, Valle del Cauca |
 | 7       | 143               | 71                                 | 0               | 0.17                              | Alto                            | Antioquia, Bogotá, Atlántico |
+
+
+
+### Anomaly Detección
+
+Para la deteccion de observaciones anomalas se implementa una funcion sobre los datos de “contratos_infraesructura_df” unidos con left con “entidades_clustered_df” e “ indice_transparencia”.
+
+Antes de implementar la funcion se realiza un preprocesamiento de los datos que consistió en:
+-Seleccionar ['REFERENCIA_CONTRATO'] como indice del data frame.
+-Seleccionar las columnas numéricas y categóricas del dataframe
+-Aplicar la función de “preprocess_data”que realiza los siguientes procesos. 
+-Aplica StandardScaler a las variables numéricas para que todos los valores tengan la misma escala. 
+-Aplica get_dummes sobre las variables categóricas para tener un dataframe con valores que el modelo reciba correctamente el data frame resultante. 
+
+- **Funcion detect_anomalies**:
+Recibe como parámetros el dataframe, el nombre de la columna de los cluster, los nombres de las columnas y un parámetro de contaminación de los datos que significa la probabilidad esperada de valores anómalos. Este parámetro se probó con valores entre 0.01 y 0.2. 
+En un ciclo for evalúa por cada cluster el modelo IsolationForest
+
+Isolation Forest es un método de detección de anomalías no supervisado, es decir, que se utiliza cuando no tenemos clasificadas las observaciones como anomalías o no.
+Para decidir si una observación es anómala o no, para cada observación se calcula su anomaly score. El anomaly score es una métrica que surge de la siguiente fórmula:
+s(x,n)=2−E(h(x))c(n)
+En las que:
+  h(x): es la profundidad (o altura) media de X de los iTrees construidos.
+  c(n) es la altura media para encontrar un nodo en un Isolation Tree.
+  n: es el tamaño del dataset.
+
+El concepto general es que compara las profundidades de los distintos árboles para ver cuál es diferente a los demás. 
+Para mejorar la interpretabilidad de los resultados se realizar un escalamiento de los resultados con MinMaxScaler(feature_range=(0, 1))por lo tanto en los resultados entre más cercano a 1 significa que es más probable que se trate de un dato anómalo. 
+
+Luego se Aplica PCA para visualizar todas las dimensiones de los datos en una gráfica que indica si el valor es anómalo (rojo) o no (Azul)
+
+Al aplicar la función se obtienen los siguientes resultados:
+
+<p align="center">
+  <img src="img/Anomalies_analysis.png"
+         alt="Anomalies_analysis"
+         width="500" height="300">
+</p>
+<center>Figura 11. Anomalies analysis</center>
+
+| Anomaly Score | Cantidad |
+|--------|------------------------|
+| [0.0, 0.1]    | 156654                    |
+| [0.1, 0.2]    | 10070                    |
+| [0.2, 0.3]  | 92701                   |
+| [0.3, 0.4]  | 18656                  |
+| [0.4, 0.5]  | 23520                   |
+| [0.5, 0.6]  | 15860                   |
+| [0.6, 0.7]  | 14740                   |
+| [0.7, 0.8]  | 6851                   |
+| [0.8, 0.9]  | 1696                   |
+| [0.9, 1.0]  | 484                   |
+
+| Anomaly Score | % |
+|--------|------------------------|
+| [0.0, 0.1]    | 34.9%                   |
+| [0.1, 0.2]    | 22.43%                   |
+| [0.2, 0.3]  | 20.65%                  |
+| [0.3, 0.4]  | 4.16%                  |
+| [0.4, 0.5]  | 5.24%                  |
+| [0.5, 0.6]  | 3.53%                   |
+| [0.6, 0.7]  | 3.28%                   |
+| [0.7, 0.8]  | 1.52%                   |
+| [0.8, 0.9]  | 0.38%                   |
+| [0.9, 1.0]  | 0.10%                   |
+
+
+<p align="center">
+  <img src="img/Pivot_table_Score_Anomalies.png"
+         alt="Pivot_table_Score_Anomalies"
+         width="320" height="180">
+</p>
+<center>Figura 11. Pivot table Score Anomalies por Cluster </center> 
+
+
+Los resultados nos indican que entre los cluster seleccionados no hay datos anómalos y en los bins de las probabilidades mas altas 0.8-0.9 y 0.9-1.0 se encuentran a nivel general por debajo del 1.12% de los datos y entre los bins 0.6-0.7 y 0.7-0.8 están por debajo del 7.5% de los datos. Entendiendo que lo recomendable es que estén por debajo de 0.5 estamos hablando de una muy buena distribución y clusterización de los datos. 
