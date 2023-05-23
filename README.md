@@ -346,7 +346,7 @@ Al aplicar la función se obtienen los siguientes resultados:
 
 
 <p align="center">
-  <img src="img/Pivot_table_Score_Anomalies.png"
+  <img src="img/Pivot_table_Score_Anomalies.PNG"
          alt="Pivot_table_Score_Anomalies"
          width="320" height="180">
 </p>
