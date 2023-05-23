@@ -348,7 +348,7 @@ Al aplicar la función se obtienen los siguientes resultados:
 <p align="center">
   <img src="img/Pivot_table_Score_Anomalies.PNG"
          alt="Pivot_table_Score_Anomalies"
-         width="320" height="180">
+         width="600" height="250">
 </p>
 <center>Figura 11. Pivot table Score Anomalies por Cluster </center> 
 
