@@ -1,5 +1,5 @@
 - Manual de usuario: https://github.com/cdgonzalezr1/datos_abiertos/blob/main/Manual%20de%20Usuario.pdf
-- Proototipo fachada: https://github.com/cdgonzalezr1/datos_abiertos/blob/main/datos_abiertos_diagrama-Back-end.drawio.png
+- Protototipo fachada: https://github.com/cdgonzalezr1/datos_abiertos/blob/main/datos_abiertos_diagrama-Back-end.drawio.png
 - PPT: https://docs.google.com/presentation/d/166EW9AicZ0vJUdLNIAlL7KDmwhrdxPLO9oh8K_Q77XI/edit?usp=sharing
 - Dashbaord Streamlit: http://3.145.159.239:8501
 
