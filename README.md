@@ -1,3 +1,6 @@
+Manual de usuario: https://github.com/cdgonzalezr1/datos_abiertos/blob/main/Manual%20de%20Usuario.pdf
+
+
 # Indicador de Justa Asignación: Riesgos y Contrataciones Irregulares en Infraestructura
 
 _Grupo de trabajo: Alan Yovany Gasca, Christian David González, Jolman Salinas_
