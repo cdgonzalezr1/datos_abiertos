@@ -9,7 +9,7 @@
 <p align="center">
   <img src="img/prototipo_fachada.png"
          alt="Tabla de requerimientos"
-         width="700" height="300">
+         width="900" height="300">
 </p>
 
 # Indicador de Justa Asignación: Riesgos y Contrataciones Irregulares en Infraestructura
