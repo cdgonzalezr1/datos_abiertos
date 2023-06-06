@@ -12,6 +12,25 @@
          width="900" height="300">
 </p>
 
+El proyecto ha logrado cumplir satisfactoriamente con todos los requerimientos y pruebas establecidos en cada aspecto evaluado. A continuación se presenta un resumen del cumplimiento por aspecto:
+
+Negocio:
+
+R1: Se cumplió al 90% con la identificación de áreas con mayor riesgo de corrupción en contrataciones, utilizando comparaciones con reportes históricos y consultando a expertos en el área. Se obtuvo un criterio sólido para medir el riesgo en los contratos públicos.
+
+R2: Se logró evaluar la evolución de los índices de transparencia a lo largo del tiempo, observando una mejora significativa en dichos índices en un periodo determinado. El cumplimiento fue del 100%.
+
+Desempeño:
+
+R3: El desarrollo de un modelo de detección de anomalías para contratos potencialmente no transparentes cumplió con las pruebas de validación cruzada y datos nuevos. El modelo mostró una precisión, sensibilidad y especificidad dentro de los rangos aceptables establecidos, superando el 80% de cumplimiento.
+
+R4: El indicador de transparencia generado utilizando modelos de aprendizaje supervisado fue validado mediante pruebas y demostró una precisión y correlación aceptables con indicadores conocidos de transparencia. El cumplimiento fue del 100%.
+
+Funcional:
+
+R5: La visualización interactiva y accesible para los usuarios fue sometida a pruebas de usabilidad con usuarios reales. Los resultados demostraron que la visualización es fácil de usar, cuenta con una navegación intuitiva y es accesible en diferentes dispositivos y navegadores. 
+
+
 # Indicador de Justa Asignación: Riesgos y Contrataciones Irregulares en Infraestructura
 
 _Grupo de trabajo: Alan Yovany Gasca, Christian David González, Jolman Salinas_
