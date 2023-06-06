@@ -2,6 +2,15 @@
 - Protototipo fachada: https://github.com/cdgonzalezr1/datos_abiertos/blob/main/datos_abiertos_diagrama-Back-end.drawio.png
 - PPT: https://docs.google.com/presentation/d/166EW9AicZ0vJUdLNIAlL7KDmwhrdxPLO9oh8K_Q77XI/edit?usp=sharing
 - Dashbaord Streamlit: http://3.145.159.239:8501
+- Tabla de requerimientos: https://github.com/cdgonzalezr1/datos_abiertos/blob/main/img/prototipo_fachada.png
+
+### Tabla de requerimientos
+
+<p align="center">
+  <img src="img/prototipo_fachada.png"
+         alt="Tabla de requerimientos"
+         width="500" height="200">
+</p>
 
 # Indicador de Justa Asignación: Riesgos y Contrataciones Irregulares en Infraestructura
 
